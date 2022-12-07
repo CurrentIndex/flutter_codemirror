@@ -29,6 +29,8 @@ class CodeMirrorView extends StatefulWidget {
 }
 
 class _CodeMirrorViewState extends State<CodeMirrorView> {
+  late final CodeMirrorController controller;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,11 +39,26 @@ class _CodeMirrorViewState extends State<CodeMirrorView> {
       ),
       body: CodeMirror(
         onCreated: (CodeMirrorController controller) {
-          controller.createItem(name: "name", props: CodeMirrorProps());
+          controller.createItem(
+              name: "name",
+              props: CodeMirrorProps(
+                style: CodeMirrorStyle(fontSize: "14px"),
+                theme: CmTheme.oneDark,
+                language: CmLanguage.javascript,
+              ));
           controller.selectItem(name: "name");
+          this.controller = controller;
         },
-        onItemReadied: (String name) {},
-        onItemUpdated: (String name) {},
+        onItemReadied: (String name) {
+          debugPrint(">>>>>>> onItemReadied: $name");
+        },
+        onItemUpdated: (String name) async {
+          final map = {
+            "doc": await controller.doc(name: 'name'),
+            "undoDepth": await controller.itemUndoDepth(name: 'name'),
+          };
+          debugPrint(">>>>>>> onItemUpdated: $name\n$map");
+        },
       ),
     );
   }
