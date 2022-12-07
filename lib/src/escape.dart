@@ -1,5 +1,5 @@
 String jsInTempStrConvert(String text) {
-  var val = _jsInQuotesStrConvert(text, 0, text.length);
+  var val = _jsInTempStrConvert(text, 0, text.length);
   return val ?? text;
 }
 

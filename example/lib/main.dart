@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_codemirror/codemirror.dart';
+import 'package:flutter_codemirror/flutter_codemirror.dart';
 
 void main() {
   runApp(const Main());
